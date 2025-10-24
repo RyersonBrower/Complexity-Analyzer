@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  analyzer:
+    build: ./analyzer
+    container_name: analyzer
+    ports:
+      - "5000:5000"
+    networks:
+      - algnet
+    restart: on-failure
+    depends_on:
+      - recurrence
+
+  recurrence:
+    build: ./recurrence
+    container_name: recurrence
+    ports:
+      - "5001:5001"
+    networks:
+      - algnet
+    restart: on-failure
+
+  presentation:
+    build: ./presentation
+    container_name: presentation
+    ports:
+      - "5002:5002"
+    networks:
+      - algnet
+    restart: on-failure
+    depends_on:
+      - analyzer
+
+networks:
+  algnet:
+    driver: bridge
