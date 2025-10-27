@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.26)  26 OCT 2025 22:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.26)  27 OCT 2025 18:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -497,12 +497,7 @@ l.78 \cleardoublepage
 
 
 ]
-Overfull \hbox (3.14928pt too wide) in paragraph at lines 131--151
- [][] 
- []
-
-
-Overfull \hbox (20.12186pt too wide) in paragraph at lines 169--190
+Overfull \hbox (3.14928pt too wide) in paragraph at lines 145--165
  [][] 
  []
 
@@ -516,14 +511,21 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.195 
+l.169 
        [1
 
 ]
+Overfull \hbox (20.12186pt too wide) in paragraph at lines 183--204
+ [][] 
+ []
+
+
 
 [2]
 
-[3] (./Technical Documentation.aux)
+[3]
+
+[4] (./Technical Documentation.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
@@ -533,9 +535,9 @@ ed.
 (rerunfilecheck)             Checksum: DEC7075F6FDCBC11B11FC444BBD47828;4236.
  ) 
 Here is how much of TeX's memory you used:
- 11282 strings out of 467800
- 181495 string characters out of 5436061
- 604025 words of memory out of 5000000
+ 11283 strings out of 467800
+ 181501 string characters out of 5436061
+ 603025 words of memory out of 5000000
  39766 multiletter control sequences out of 15000+600000
  631688 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -544,10 +546,10 @@ Here is how much of TeX's memory you used:
 live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2025
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on "Technical Documentation.pdf" (6 pages, 83523 bytes).
+Output written on "Technical Documentation.pdf" (7 pages, 87394 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 161 compressed objects within 2 object streams
- 33 named destinations out of 1000 (max. 500000)
+ 185 PDF objects out of 1000 (max. 8388607)
+ 166 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
  185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

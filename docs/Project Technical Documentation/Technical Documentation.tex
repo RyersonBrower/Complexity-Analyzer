@@ -96,10 +96,14 @@ Project Technical Documentation
 % 300 words
 % Description of the project, what the project provides, its purpose, problems solved, and target audience.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquet lectus proin nibh nisl condimentum id. Lorem dolor sed viverra ipsum nunc aliquet. Magna fringilla urna porttitor rhoncus dolor. Bibendum at varius vel pharetra vel turpis nunc eget. Fermentum posuere urna nec tincidunt praesent semper. 
-%use blank lines to begin a new paragraph
+The Algorithm Complexity Analyzer project aims to develop a microservice-based system that automates the evaluation of algorithmic efficiency through Big-O and recurrence relation analysis. The project provides a scalable platform that decomposes the complexity analysis process into independent services, each responsible for a specific function such as time complexity detection, recurrence modeling, and result presentation. By using Docker containers, the system ensures cross-platform compatibility, simple deployment, and reliable communication between services. 
 
-Nunc congue nisi vitae suscipit tellus mauris a. Tellus at urna condimentum mattis pellentesque id nibh. Massa tincidunt dui ut ornare lectus. Quisque id diam vel quam elementum. Nunc lobortis mattis aliquam faucibus. Tellus elementum sagittis vitae et. Eget felis eget nunc lobortis mattis aliquam faucibus purus. 
+The primary purpose of the project is the simplify the process of analyzing algorithmic time complexity, which is often performed manually and can often times be done wrong. Developers and students frequently struggle to derive Big-O notation from algorithmic structures. This tool addresses that challenge by automating the process and identifying recurrence relations from code snippets and giving an explanation behind each result. 
+
+The project is designed to solve several practical and educational problems. It eliminates the need for manual complex mathematical analysis by providing automated, accurate, and explainable evaluations. It also bridges the gap between theoretical computer science problems and practical software engineering. Furthermore, by containerizing each microservice, the system supports execution, easy maintenance, and scalable updates without the risk of affecting other services. 
+
+The target audience for this system includes, software developers, computer science students, and educators who would either like to automate their own code, or learn how to evaluate the computational complexity of algorithms efficiently. Educational institutions could integrate the tool into programming or algorithm design courses. Overall, this project delivers a platform-independent, educational, and beginner-friendly solution for algorithmic complexity evaluation. By combining automation, explanation, and scalability within a microservice architecture, it deepens our understanding of computer science theory and software engineering practice. 
+%use blank lines to begin a new paragraph
 
 %---------------------------End Project Overview---------------------------------------
 
@@ -110,7 +114,17 @@ Nunc congue nisi vitae suscipit tellus mauris a. Tellus at urna condimentum matt
 % 350 words
 % Description of all deliverables, benefits, outcomes, and work required (all tasks, costs, time, people, resources, dates/deadlines, and final deliverables date).
 
-Text goes here.
+The Algorithmic Complexity Analyzer project focuses on developing a microservice-based tool that automates the evaluation of algorithmic efficiency through Big-) and recurrence relation analysis. The project will deliver a containerized system highlighting the microservice architecture that allows us to work on separate services independently. This ensures scalability and modularity. 
+
+\textbf{Deliverables:}
+The key deliverables include: source code for each microservice, Dockerfiles and configuration files for deployment, a working prototype of the analyzer capable of accepting code files, automated orchestration scripts using Docker Compose, and documentation detailing installation, usage, and system architecture. The final deliverable will be a deployable system that can evaluate and explain algorithmic complexity within five seconds of receiving input. 
+
+\textbf{Work and Resources:}
+The project required about two weeks of development, testing, and documentation. Tasks include system design, microservice implementation, Docker setup, and testing. Required resources include Docker Desktop, a code editor such as Visual Studio Code, a GitHub repository for version control, and access to a command line interface for deployment testing. 
+
+\textbf{Benefits and Outcomes:}
+The primary benefit of this system is automating analyzing algorithmic efficiency, which is a complex and error-prone process. The outcome is user-friendly to those who have experience using a command line interface, educational, and easily scalable. It helps students understand computational complexity by giving explanations and can assist developers in optimizing algorithms during the design phase. 
+
 
 %---------------------------End Project Scope---------------------------------------
 
@@ -304,7 +318,7 @@ The non-functional requirements focus on making the test automation framework re
 \section{Conclusion}
 %200 words
 %Concluding remarks that summarizes the purpose and outcomes of the technical document.  Discussion of short comings and future work.
-Text goes here.
+Overall, this was a very useful project to work on. We had very limited knowledge using Docker and microservices before this project. Although we are nowhere near experts in the space yet, we gained footing in containerization practices. The project itself is very useful and fortified our understanding on algorithm analysis as we developed the product. To make it easier on ourselves, we stuck to a command line interface. In past projects, we have tried to stay away from this, but for this one the most important part was making sure it was calculating things effectively and efficiently. Going forward, if we had more time to work on this project or were to continue to work on it after this sprint is done. I believe we could create a simple web-based or graphical user interface. Then we could make the system simpler to use and be able to insert more complex code. As of now, it is pretty basic but we really enjoyed the direction it was going as we went through the tough learning curve. 
 
 %---------------------------End Conclusion Section-------------------------------------
 
