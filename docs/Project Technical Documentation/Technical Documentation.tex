@@ -39,7 +39,7 @@
 \hline
 \textbf{Name} & \textbf{Email Address} \\ \hline
 Ryerson Brower         & ryerson.brower178@topper.wku        .edu \\ \hline
-Name2         & WKU email address2         \\ \hline
+Aaron Downing         & aaron.downing652@topper.wku.edu         \\ \hline
 \end{tabular}
 \end{table}
 
@@ -226,13 +226,17 @@ The non-functional requirements focus on making the test automation framework re
 \subsection{System Architecture}
 %Provide a high-level diagram and description of the overall architecture of the system. This should include components such as microservices, databases, APIs, and containers (Docker).
 
+The way we designed the architecture was as a Client-Server model where the "client" interacts with the initial microservice, which then orchestrates the remaining steps. All internal microservice communication is mandated to use TCP network sockets for API calls. The Client, Submits source code. The Complexity Analysis Service, Ingests the code, identifies the core algorithm structure, and models the recurrence relation, this uses one of the docker containers. The Recurrence Relation Service, Solves the recurrence relation and computes the Big-O notation, this also uses a docker container. The Result Presentation Service, Generates the final output (Big-O and explanation) and serves it to the client, this is the last one that uses a docker container. The last one is Docker Compose, which automates the building, starting, and connecting of the three microservice containers. The flow of the data and usage goes like this. Client submits code to the Complexity Analysis Service (Input). Complexity Analysis Service sends the generated recurrence relation to the Recurrence Relation Service. Recurrence Relation Service sends the calculated Big-O notation and solution steps to the Result Presentation Service. Result Presentation Service formats the final result and sends it back to the Client (Output).
 
 \subsection{Defined Microservices}
 %Describe each microservice or component in detail, including its role, input/output, and interactions with other services.
 
+Our first microservice is the Complexity Analysis Service (CAS). Its role is to be the entry point of the pipeline. It parses the input code snippet (e.g., using Abstract Syntax Trees or code analysis techniques) to mathematically model its runtime behavior, primarily focusing on loops, recursion, and conditional branches, to derive a formal recurrence relation. The next one is the Recurrence Relation Service (RRS). Its role is to solve the provided recurrence relation to determine the asymptotic time complexity. It must implement algorithms (like the Master Theorem or expansion/substitution methods) to handle standard forms, especially divide-and-conquer recurrences. The last one is the Result Presentation Service (RPS). Its role is to finalize the process by compiling the Big-O notation and the detailed analysis explanation into a single, highly readable and structured format for the user. It ensures the Big-O is prominent and the explanation is detailed.
 
 \subsection{Development Considerations}
 %Discuss any key design decisions, trade-offs, or challenges faced during the architecture design. Explain why certain tools or frameworks were chosen.
+There wasn't really many considerations we took into account. We just wanted to finish it as fast as possible and also we already had a pretty good idea of what we wanted to do so we just stuck with it. 
+
 
 %---------------------------End Project Modeling and Design-------------------------------------------------
 
