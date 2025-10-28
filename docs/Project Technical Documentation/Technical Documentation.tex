@@ -250,14 +250,34 @@ There wasn't really many considerations we took into account. We just wanted to 
 \subsection{Software Process Model}
 %define your approach to development using a specific software process model.
 
-\subsection{Key Algorithms and Techniques Used}
+Our approach to this project was to just get it done as fast as possible. So we did it in one big sprint. We went and did all the coding first and got it done with and working. Then we went on to the documentation. 
 
+\subsection{Key Algorithms and Techniques Used}
+The system employs a layered analytical strategy spanning regular expression matching and symbolic math:
+
+
+Service: Complexity Analysis Service (CAS), Algorithm: Naive Recurrence Detection (Regex). Uses Python's re module to perform simple, pattern-based recognition. It specifically targets the divide-and-conquer structure T(n)=aT(n/b)+f(n) and provides basic hints for for/while loops. This is a fast, but limited, form of static analysis.
+
+Service: Recurrence Relation Service (RRS), Algorithm: Master Theorem Implementation. Implements the logic of the Master Theorem to solve recurrences of the form $T(n)=aT(n/b)+f(n)$. The service calculates the threshold $\log_b a$ and compares it to $f(n)$ (simplified as $n^c$) to determine the final $\Theta$ bound (Cases 1, 2, and 3).
+
+Service: Result Presentation Service (RPS), Algorithm:Result Aggregation and Formatting. This service acts as an API Gateway/Aggregator, consuming the raw analysis from the CAS (which, in turn, includes the RRS result) and compiling the final, structured output, ensuring the Big-O notation is prominent.
 
 \subsection{Microservices and Docker Usage}
+The project is structured around three independent microservices, each running within its own Docker container:
 
+Service Name: analyzer (CAS), Code name: analyzer.py. Its role is to Receive code, detects recurrence, and orchestrates the call to the RRS. On port 5000.
+
+Service Name: recurrence (RRS), Code name: recurrence.py. It solves the Master Theorem recurrence. On port 5001
+
+Service Name: presenter (RPS), Code name: presenter.py. It is the Final aggregation and output formatting.On port 5002
+
+Docker Usage: Each service uses a minimal python:3.11-slim base image defined in its dedicated Dockerfile. This ensures a lightweight, reproducible environment, satisfying the non-functional requirement for platform independence.
 
 \subsection{Container Network Communication Setup and Testing}
+Communication Setup:
 
+For the first step of the setup. The protocols are all inter-service communication uses the Hypertext Transfer Protocol (HTTP), which operates over TCP network sockets, fulfilling Functional Requirement. 
+The second part of the setup is the Service Discovery. Here the key is the use of service names defined in docker-compose.yml: The analyzer service uses http://recurrence:5001/solve to reach the RRS. The presenter service uses http://analyzer:5000/analyze to reach the CAS. Docker Compose's internal networking and DNS provide this name resolution. For our network testing we made a simple curl command to http://localhost:5002/present (which should trigger the entire internal pipeline) validates the end-to-end communication path. Then we did time constraint test. The requests library calls include a timeout (5 or 6 seconds), aligning with Non-Functional Requirement 4 to complete the analysis quickly.
 
 \subsection{Infrastructure as Code approach}
 
