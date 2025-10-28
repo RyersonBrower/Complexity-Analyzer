@@ -9,6 +9,25 @@
 \usepackage{imakeidx}
 \usepackage{indentfirst}
 \makeindex
+
+
+
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+    basicstyle=\ttfamily\small,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    keywordstyle=\color{blue},
+    stringstyle=\color{orange},
+    commentstyle=\color{green!50!black},
+    showstringspaces=false
+}
+
 %---------------------------Do Not Edit Anything Above This Line!!------------------------
 
 % edit the line below, if needed, to change the directory name for your image files.
@@ -298,32 +317,135 @@ The second part of the setup is the Service Discovery. Here the key is the use o
 
 \subsection{Software Testing with Visualized Results}
 %Each of the testing levels (unit, Integration, System, Acceptance) should use the following test plan template.
+\subsection{Unit Testing Plan}
 
-\textbf{Test Plan Identifier:} %Provides a unique identifier for the test. Every test should have a unique identification number for reference.
 
-\textbf{Introduction:} % 50 words. Brief description and objective about the test type.
 
-\textbf{Test item:} %50 words. Includes detailed information about the Software Under Test (SUT).
+\textbf{Test Plan Identifier:} UT-001  
+Provides a unique identifier for this test plan. This plan focuses on unit testing the \texttt{naive\_data\_recurrence} function in the Complexity Analyzer software.
 
-\textbf{Features to test/not to test:} %50 words. In scope features. This could be newly added or updated features. Out of scope features not tested. [Provide reasoning for exclusion, like, non-impacted, low priority, etc.]
+\textbf{Introduction:}  
+This unit test plan verifies that the recurrence detection module correctly identifies simple loops, divide-and-conquer recurrences, and unknown code patterns. The objective is to detect functional errors early, ensure reliable classification, and support future regression testing.
 
-\textbf{Approach:} %50 words. Strategy to test the software. Includes types of tests and how to test. Functional, performance, security testing using combined [manual + automation], manual only, automation only approach.
+\textbf{Test item:}  
+The Software Under Test (SUT) is the function \texttt{naive\_data\_recurrence} in \texttt{analyzer.app}. It takes code snippets or recurrence equations as input and outputs a dictionary indicating the recurrence type and parameters.
 
-\textbf{Test deliverables:} %50 words. All the deliverables from the testing e.g. approaches, test cases, reports etc.
+\textbf{Features to test/not to test:}  
+\textbf{In scope:} Correct identification of loops, divide-and-conquer recurrences, and unknown patterns. Validation of returned dictionary keys and values.  
+\textbf{Out of scope:} Advanced recurrence analysis, multi-language support, and performance testing. Excluded due to low priority for unit-level testing.
 
-\textbf{Item pass/fail criteria:} %50 words. Entry and Exit criteria for all items. 
+\textbf{Approach:}  
+Automated unit tests using \texttt{pytest} will supply input strings to \texttt{naive\_data\_recurrence} and assert expected outputs. Functional correctness is the focus. Manual intervention is not required, and performance or security testing is excluded.
 
-\textbf{Environmental needs:} %50 words. Infrastructure required for SUT and executing test cases.
+\textbf{Test deliverables:}  
+Deliverables include unit test scripts, expected results, actual test results, and pytest-generated reports. Documentation of test cases and execution logs will be maintained for traceability.
 
-\textbf{Responsibilities:} %50 words. Roles and responsibilities for various testing / supported activities.
+\textbf{Item pass/fail criteria:}  
+Tests pass if the function correctly identifies the recurrence type and parameters. Any mismatch between expected and actual output constitutes a failure. All test cases must pass for the module to be considered correct.
 
-\textbf{Staffing and training needs:} %50 words. Training needs to bridge the gap of available and expected skill.
+\textbf{Environmental needs:}  
+Python 3.13.1 with pytest 8.4.2 installed. Access to the \texttt{analyzer.app} module. No network or external services are required.
 
-\textbf{Schedule:} %50 words.  Test schedule should also be noted in the Gantt Chart. Test estimation (Efforts) and high-level schedule. Schedule should be for key deliverables or important milestones. Ideally, all test deliverables included in the test plan should be scheduled.
+\textbf{Responsibilities:}  
+Developers create and maintain test scripts. QA engineers execute tests, record results, and report issues. Both teams review failures and coordinate fixes.
 
-\textbf{Risks and Mitigation:} %100 words. Risk identification for applicable items, assumptions, and mitigation plan.
+\textbf{Staffing and training needs:}  
+Testers must know Python, pytest, and the SUT module. Minimal training is required to understand recurrence types and testing procedures.
 
-\textbf{Approvals:} %Approvals and sign of dates.
+\textbf{Schedule:}  
+Test cases are run alongside development.
+
+\textbf{Risks and Mitigation:}  
+Risks include incomplete coverage if new recurrence types are added without updating tests, or misclassification errors. Mitigation involves regular test updates, automated regression tests, and code reviews. Changes to the SUT interface require corresponding test updates.
+
+\textbf{Approvals:}  
+Team approval required.
+
+\subsection{Integration Testing Plan}
+
+\textbf{Test Plan Identifier:} IT-001  
+Provides a unique identifier for this test plan. This plan focuses on integration testing the Flask API endpoints of the Complexity Analyzer software.
+
+\textbf{Introduction:}  
+This integration test plan verifies that the `/analyze` API endpoint correctly handles valid and invalid requests. The objective is to ensure proper request processing, response formatting, and error handling when interacting with the recurrence detection module.
+
+\textbf{Test item:}  
+The Software Under Test (SUT) is the Flask app in \texttt{analyzer.app}. The `/analyze` endpoint receives JSON payloads containing code snippets, invokes \texttt{naive\_detect\_recurrence}, and returns a structured JSON response with recurrence type and Big-O hints or error messages.
+
+\textbf{Features to test/not to test:}  
+\textbf{In scope:} Correct response for valid code submissions, appropriate error responses for invalid/empty payloads, and proper JSON formatting.  
+\textbf{Out of scope:} Authentication, rate limiting, performance under high load, and non-JSON input handling. Excluded due to focus on core functionality and unit integration.
+
+\textbf{Approach:}  
+Automated integration tests using Flask’s test client will simulate POST requests to `/analyze` and validate responses. Tests focus on functional correctness, status codes, and response content. Manual testing is not required. No performance or security tests are included in this plan.
+
+\textbf{Test deliverables:}  
+Deliverables include integration test scripts, input payloads, expected outputs, actual responses, and test reports generated by pytest or CI tools. Execution logs and documentation will be maintained for traceability.
+
+\textbf{Item pass/fail criteria:}  
+Tests pass if the API returns the correct status code and response JSON for each input. Failures occur when response structure or content deviates from expected output. All test cases must pass for the endpoint to be considered functionally correct.
+
+\textbf{Environmental needs:}  
+Python 3.13.1 with Flask and pytest installed. Access to the \texttt{analyzer.app} module. Local development environment or CI server capable of running Flask test clients. No external services required.
+
+\textbf{Responsibilities:}  
+Developers write and maintain integration test scripts. QA engineers execute tests, record results, and report discrepancies. Both teams collaborate to address failures, review logs, and ensure reliability of API endpoints.
+
+\textbf{Staffing and training needs:}  
+Team members should be familiar with Python, Flask, pytest, and JSON handling. Minimal training required for understanding API endpoints and response validation for integration testing.
+
+\textbf{Schedule:}  
+Integration tests are run alongside development to ensure everything is running smoothly.
+
+\textbf{Risks and Mitigation:}  
+Risks include incomplete coverage if new endpoint features are added without updating tests or changes to JSON response structure. Mitigation includes maintaining test scripts alongside API updates, automated regression testing, and code review. API interface changes require corresponding test adjustments.
+
+\textbf{Approvals:}  
+Team approval required.
+
+
+\subsection{System Testing Plan}
+
+\textbf{Test Plan Identifier:} ST-001  
+Provides a unique identifier for this test plan. This plan focuses on system-level testing of the local Flask app of the Complexity Analyzer software.  
+
+\textbf{Introduction:}  
+This system test plan verifies that the Flask application responds correctly to `/analyze` requests. The objective is to ensure functional correctness of the complete system, including request processing, response structure, and handling of valid, empty, and unknown inputs.  
+
+\textbf{Test item:}  
+The Software Under Test (SUT) is the Flask application in \texttt{analyzer.app}. The `/analyze` endpoint accepts JSON payloads, invokes the recurrence detection logic, and returns structured JSON responses including recurrence type and Big-O hints.  
+
+\textbf{Features to test/not to test:}  
+\textbf{In scope:} Correct HTTP responses for valid code submissions, empty requests, and unknown code patterns. Verification of status codes and JSON structure.  
+\textbf{Out of scope:} Docker deployment, external network communication, authentication, and high-load performance. These are excluded because this test focuses on local system functionality.  
+
+\textbf{Approach:}  
+Automated system tests using Flask’s built-in test client will simulate POST requests to `/analyze`. Tests validate status codes, JSON keys, and response content. Functional correctness is prioritized. No manual testing or performance testing is included.  
+
+\textbf{Test deliverables:}  
+Deliverables include the system test scripts, input payloads, expected outputs, actual responses, and pytest-generated reports. Logs and documentation of test results will be maintained for traceability and regression testing.  
+
+\textbf{Item pass/fail criteria:}  
+Tests pass if the Flask app returns correct status codes and response JSON for all input scenarios. Failures occur when response content, structure, or status code differs from expected results. All tests must pass for the system to be considered correct.  
+
+\textbf{Environmental needs:}  
+Python 3.13.1 with Flask and pytest installed. Access to the local \texttt{analyzer.app} module. No external services or network connections are required.  
+
+\textbf{Responsibilities:}  
+Developers create and maintain system test scripts. QA engineers execute tests, document results, and report failures. Both teams review and address issues to ensure correct system behavior.  
+
+\textbf{Staffing and training needs:}  
+Team members should be familiar with Python, Flask, pytest, and HTTP request/response handling. Minimal training is needed to understand endpoint behavior and system-level testing procedures.  
+
+\textbf{Schedule:}  
+As soon as possible. Automated execution enables repeated testing after code changes.  
+
+\textbf{Risks and Mitigation:}  
+Risks include incomplete coverage if new API features are added without updating tests, or misclassification in the recurrence detection module. Mitigation includes maintaining test scripts alongside code updates, automated regression testing, and code review. Changes to the API interface require corresponding updates to system tests.  
+
+\textbf{Approvals:}  
+Team approval required.
+
 
 %---------------------------Software Testing Plan Template-------------------------------------
 
@@ -355,19 +477,274 @@ Overall, this was a very useful project to work on. We had very limited knowledg
 \section{Appendix}
 
 \subsection{Software Product Build Instructions}
-%Include in this section all steps for copying the current state of the product to new computers for continued development.
-Text goes here.
+
+To continue development of the Algorithm Complexity Analyzer on a new computer, follow these steps:
+
+\textbf{Step 1: Copy the Project Folder}
+
+Copy the entire project directory to the new machine, ensuring all subfolders and files are preserved.  
+
+
+\textbf{Step 2: Install Prerequisites}
+
+Install the following on the new machine:
+
+- Docker Desktop  
+- PowerShell 7 (optional)  
+- VS Code or another code editor (optional)
+
+\textbf{Step 3: Verify Docker}
+
+Open PowerShell and run:
+
+\begin{verbatim}
+docker --version
+docker compose version
+\end{verbatim}
+
+\textbf{Step 4: Start the Microservices}
+
+Navigate to the project folder:
+
+\begin{verbatim}
+cd "C:\path\to\algorithm-analyzer"
+\end{verbatim}
+
+Then run one of the following:
+
+\begin{verbatim}
+docker compose up --build
+# or run in background
+docker compose up -d --build
+# or use the script
+.\run.ps1
+\end{verbatim}
+
+\textbf{Step 5: Test the Setup}
+
+Send a test request:
+
+\begin{verbatim}
+Invoke-RestMethod -Uri "http://localhost:5002/present" `
+  -Method Post `
+  -Headers @{ "Content-Type" = "application/json" } `
+  -Body '{"code":"T(n) = 2T(n/2) + n"}' | ConvertTo-Json -Depth 10
+\end{verbatim}
+
+\textbf{Step 6: Stop the Microservices}
+
+\begin{verbatim}
+docker compose down
+\end{verbatim}
+
+---
 
 \subsection{Software Product User Guide}
-%Include in this section an overview guide on how to use your software product for a general user and an administrative user.
-Text goes here.
+
+The Algorithm Complexity Analyzer allows users to submit algorithm code and receive time complexity analysis. 
+
+\subsubsection{General User}
+
+General users can:
+
+\textbf{Capabilities:}
+- Submit algorithm code snippets in standard programming syntax.
+- Receive analysis results including:
+  - Big-O notation of the algorithm
+  - Explanation of the analysis
+  - Recurrence solution (if applicable)
+
+\textbf{Example:} To submit code, send a POST request to the Presentation microservice API:
+
+\begin{verbatim}
+POST http://localhost:5002/present
+Body: {"code":"T(n) = 2T(n/2) + n"}
+\end{verbatim}
+
+The response will contain JSON with the `big\_o` value, explanation, and recurrence solution.
+
+\-\-\-
+
+\subsubsection{Administrative User}
+
+Administrative users manage the microservices and development environment. Their responsibilities include:
+
+\textbf{Starting and Stopping Docker Containers:}
+
+\begin{verbatim}
+docker compose up -d
+docker compose down
+\end{verbatim}
+
+\textbf{Updating or Rebuilding Services After Code Changes:}
+
+\begin{verbatim}
+docker compose up --build
+\end{verbatim}
+
+\textbf{Monitoring Container Status:}
+
+\begin{verbatim}
+docker ps
+\end{verbatim}
+
+Administrators can also modify or extend microservices for new algorithms or features.
+
+
+
+
 
 \subsection{Source Code with Comments}
 %Include in this section all final source code for the product.  Label each file with headings such as, C.1 file1.c, C.2 file2.c, C.3 file1.py, etc.  All source code should be effectively commented.
-Text goes here.
+
+
+\noindent\textbf{File:} \texttt{analyzer/app.py}
+
+\begin{lstlisting}[language=Python, caption={}, label={lst:analyzer-app}]
+from flask import Flask, request, jsonify
+import requests
+import re
+
+app = Flask(__name__)
+RECURRENCE_SERVICE = "http://recurrence:5001/solve"
+
+def naive_detect_recurrence(code: str):
+    s = code.replace(" ", "")
+    m = re.search(r"T\(n\)\s*=\s*(\d+)T\(n/(\d+)\)\+(.+)", s)
+    if m:
+        a, b, f = m.groups()
+        return {"type": "divide-and-conquer", "a": int(a), "b": int(b), "f": f}
+    if re.search(r"for\s+\w+\s+in\s+range|while\s*\(", code):
+        return {"type": "loop", "hint": "may be O(n) or O(n^2) depending on nested loops"}
+    return {"type": "unknown"}
+
+@app.route("/analyze", methods=["POST"])
+def analyze():
+    payload = request.json or {}
+    code = payload.get("code", "")
+    if not code:
+        return jsonify({"error": "no code provided"}), 400
+
+    rec = naive_detect_recurrence(code)
+    result = {"recurrence_detected": rec}
+
+    if rec.get("type") == "divide-and-conquer":
+        try:
+            resp = requests.post(RECURRENCE_SERVICE, json={
+                "a": rec["a"], "b": rec["b"], "f": rec["f"]
+            }, timeout=5)
+            result["recurrence_solution"] = resp.json()
+        except Exception as e:
+            result["recurrence_solution"] = {
+                "error": "could not reach recurrence service",
+                "detail": str(e)
+            }
+
+    if rec.get("type") == "loop":
+        result["big_o_hint"] = "O(n) or O(n^2) - check nested loops."
+    elif rec.get("type") == "divide-and-conquer":
+        result["big_o_hint"] = "Use recurrence solution returned above."
+    else:
+        result["big_o_hint"] = "unknown"
+
+    return jsonify(result)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+\end{lstlisting}
 
 
 
+
+\noindent\textbf{File:} \texttt{recurrence/app.py}
+
+\begin{lstlisting}[language=Python, caption={}, label={lst:recurrence-app}]
+from flask import Flask, request, jsonify
+import math
+
+app = Flask(__name__)
+
+def master_theorem(a, b, f_str):
+    try:
+        a = int(a); b = int(b)
+    except:
+        return {"error": "a and b must be integers"}
+    log_term = math.log(a, b)
+    import re
+    m = re.search(r"n\^(\d+)", f_str)
+    if m:
+        c = int(m.group(1))
+        if abs(c - log_term) < 1e-6:
+            return {"theta": f"n^{c}", "case": "2 (f(n) = Theta(n^{log_b a}))"}
+        elif c < log_term:
+            return {"theta": f"n^{log_term:.3f}", "case": "1 (f(n) = O(n^{log_b a - eps}))"}
+        else:
+            return {"theta": f"f(n) dominates (approx n^{c})", "case": "3 (f(n) = Omega(n^{log_b a + eps}))"}
+    return {"theta": f"n^{log_term:.3f} (master theorem baseline)", "note": "f(n) not parsed; returned baseline"}
+
+@app.route("/solve", methods=["POST"])
+def solve():
+    data = request.json or {}
+    a = data.get("a")
+    b = data.get("b")
+    f = data.get("f", "unknown")
+    if a is None or b is None:
+        return jsonify({"error": "missing a or b"}), 400
+    sol = master_theorem(a, b, str(f))
+    return jsonify({"a": a, "b": b, "f": f, "solution": sol})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5001)
+\end{lstlisting}
+
+
+
+
+
+\noindent\textbf{File:} \texttt{presentation/app.py}
+
+\begin{lstlisting}[language=Python, caption={}, label={lst:presentation-yeayea}]
+from flask import Flask, request, jsonify
+import requests
+
+app = Flask(__name__)
+ANALYZER_SERVICE = "http://analyzer:5000/analyze"
+
+@app.route("/present", methods=["POST"])
+def present():
+    payload = request.json or {}
+    code = payload.get("code")
+    if not code:
+        return jsonify({"error": "no code provided"}), 400
+
+    try:
+        # Step 1: Send code to Analyzer
+        resp = requests.post(ANALYZER_SERVICE, json={"code": code}, timeout=6)
+        analysis = resp.json()
+    except Exception as e:
+        return jsonify({"error": "could not reach analyzer", "detail": str(e)}), 500
+
+    # Step 2: Extract recurrence solution if available
+    recurrence_solution = analysis.get("recurrence_solution", {})
+    solution_data = recurrence_solution.get("solution", {})
+
+    # Step 3: Fill big_o using recurrence solution if available
+    if solution_data.get("theta"):
+        big_o = solution_data["theta"]
+    else:
+        big_o = analysis.get("big_o_hint", "unknown")
+
+    formatted = {
+        "big_o": big_o,
+        "explanation": "The recurrence was analyzed using the Recurrence service. See recurrence_solution for step-by-step details.",
+        "recurrence_analysis": recurrence_solution
+    }
+
+    return jsonify({"analysis": formatted, "raw": analysis})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5002)
+\end{lstlisting}
 
 
 
